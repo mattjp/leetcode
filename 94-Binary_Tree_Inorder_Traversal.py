@@ -12,5 +12,4 @@ class Solution:
     return x
 
   def inorderTraversal(self, root: TreeNode) -> List[int]:
-    x = []
-    return self.helper(root, x)
+    return self.helper(root, [])
