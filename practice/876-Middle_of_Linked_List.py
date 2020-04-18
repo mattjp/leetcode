@@ -10,3 +10,14 @@ class Solution:
     for i in range(0, half):
       second_ptr = second_ptr.next
     return second_ptr
+  
+  def middleNodeOnePass(self, head: ListNode) -> ListNode:
+    slow = head
+      fast = head
+      while fast.next is not None:
+        if fast.next.next is not None:
+          fast = fast.next.next
+        else:
+          fast = fast.next
+        slow = slow.next
+    return slow
