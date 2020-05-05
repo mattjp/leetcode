@@ -14,3 +14,14 @@ class Solution:
         else:
           seen.add(c)
     return -1
+  
+# Solved again
+class Solution:
+  def firstUniqChar(self, s: str) -> int:
+    from collections import Counter
+    chars = Counter(s)
+    unique_chars = dict(filter(lambda v: v[1] == 1, chars.items()))
+    for i in range(len(s)):
+      if s[i] in unique_chars:
+        return i
+    return -1
