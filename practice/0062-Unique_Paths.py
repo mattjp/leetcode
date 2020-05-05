@@ -34,3 +34,28 @@ class Solution:
     dp = [[None] * m for i in range(n)]
     dp[n-1][m-1] = 1
     return self.helper(m,n,dp)
+  
+# Solved again
+# [1]
+#
+# [2, 1]
+# [1, 1]
+#
+# [6, 3, 1]
+# [3, 2, 1]
+# [1, 1, 1]
+#
+# [10, 6, 3, 1]
+# [4,  3, 2, 1]
+# [1,  1, 1, 1]
+# while m > 0 / n > 0
+# g[m][n] = g[m+1][n]+g[m][n+1]
+class Solution:
+  def uniquePaths(self, m: int, n: int) -> int:
+    G = [[1 for _ in range(n)] for _ in range(m)]
+
+    for mi in range(m-2, -1, -1):
+      for nj in range(n-2, -1, -1):
+        G[mi][nj] = G[mi+1][nj] + G[mi][nj+1]
+
+    return G[0][0]
