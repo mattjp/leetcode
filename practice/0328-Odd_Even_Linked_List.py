@@ -13,10 +13,10 @@ class Solution:
     even = head.next
     even_head = even
     while odd.next is not None and even.next is not None: # odd.next fails before even.next so no exceptions
-        odd.next = even.next
-        odd = odd.next
-        even.next = odd.next
-        even = even.next
+      odd.next = even.next
+      odd = odd.next
+      even.next = odd.next
+      even = even.next
 
     odd.next = even_head # set end of odd list equal to start of even list
     return odd_head
