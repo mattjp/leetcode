@@ -13,3 +13,18 @@ class Solution:
 
   def inorderTraversal(self, root: TreeNode) -> List[int]:
     return self.helper(root, [])
+  
+# solved again
+class Solution:
+  def inorderTraversal(self, root: TreeNode) -> List[int]:
+    self.output = []
+
+    def loop(root: TreeNode) -> None:
+      if root == None:
+        return
+      loop(root.left)
+      self.output.append(root.val)
+      loop(root.right)
+
+    loop(root)
+    return self.output
