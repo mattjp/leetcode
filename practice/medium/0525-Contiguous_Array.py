@@ -35,4 +35,26 @@ class Solution:
         return self.maxLen
 
     return helper(nums) # too slow :(
+  
+# solved again
+class Solution:  
+  def findMaxLength(self, nums: List[int]) -> int:
+  # map the current balance to the index at which it was seen
+  # equal indicies implies an equal number of 1/0s between them
+
+    maximum = 0
+    mappings = {0: -1} # map balance to first-seen index. 0 -> -1 because 0 implies balance, -1 for 0-indexing
+    balance = 0
+
+    for i in range(len(nums)):
+      if nums[i] == 1:
+        balance += 1
+      else:
+        balance -= 1
+      if balance not in mappings:
+        mappings[balance] = i
+      maximum = max(maximum, i - mappings[balance])
+
+    return maximum
+
     
