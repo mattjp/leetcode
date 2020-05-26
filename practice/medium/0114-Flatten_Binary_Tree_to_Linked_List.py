@@ -39,7 +39,7 @@ class Solution:
       if root.right == None and root.left == None:
         return root
 
-      l_tail = loop(root.left) # 
+      l_tail = loop(root.left)
       r_tail = loop(root.right)
 
       # reorder the current subtree
