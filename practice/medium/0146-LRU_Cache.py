@@ -1,3 +1,7 @@
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
 class LRUCache:
 
   def __init__(self, capacity: int):
@@ -36,8 +40,26 @@ class LRUCache:
       else:
         self.update_most_recent(key)
         self.key_values[key] = value
+        
+# solved again - correctly with external libraries
+class LRUCache:
+  from collections import OrderedDict
 
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
+  def __init__(self, capacity: int):
+    self.cache = OrderedDict() # keep cache in insertion order
+    self.capacity = capacity
+
+
+  def get(self, key: int) -> int:
+    if key in self.cache:
+      self.cache.move_to_end(key, last=False) # move cache[key] to the head of the dict
+      return self.cache[key]
+    else:
+      return -1
+
+
+  def put(self, key: int, value: int) -> None:
+    self.cache[key] = value
+    self.cache.move_to_end(key, last=False) # move cache[key] to the head of the dict
+    if len(self.cache) > self.capacity:
+      self.cache.popitem(last=True) # pop the least recently used item
