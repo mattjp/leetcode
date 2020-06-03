@@ -38,3 +38,39 @@ class Solution:
         return ''
 
     return ''.join(output) # return a string
+  
+  
+# solved on my own
+class Solution:
+  def alienOrder(self, words: List[str]) -> str:
+    from collections import defaultdict, deque
+
+    adj_list = defaultdict(list)
+    in_nodes = {i: 0 for w in words for i in w}
+
+    # build adjacency list
+    for i in range(1, len(words)):
+      word1 = words[i-1]
+      word2 = words[i]
+      for ch1, ch2 in zip(word1, word2):
+        if ch1 != ch2:
+          adj_list[ch1].append(ch2)
+          in_nodes[ch2] += 1
+          break
+      else:
+        if len(word2) < len(word1):
+          return ''
+
+    output = ''
+    zeroes = deque(filter(lambda x: x[1] == 0, in_nodes.items()))
+
+    while zeroes:
+      top = zeroes.popleft()
+      output += top[0]
+      for adj in adj_list[top[0]]:
+        in_nodes[adj] -= 1
+        if in_nodes[adj] == 0:
+          zeroes.append(adj)
+
+    return '' if len(zeroes) > 0 or any(filter(lambda x: x[1] > 0, in_nodes.items())) else output
+
