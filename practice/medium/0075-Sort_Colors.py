@@ -21,3 +21,25 @@ class Solution:
           nums.append(cur)
         ones -= 1
       zeros -= 1
+      
+      
+# solved again
+class Solution:
+  def sortColors(self, nums: List[int]) -> None:
+    """
+    Do not return anything, modify nums in-place instead.
+    """
+    zeros = len(nums)-1
+    ones = len(nums)-1
+
+    for _ in nums:
+      top = nums.pop(0)
+      if top == 0:
+        nums.insert(zeros, top)
+      elif top == 1:
+        nums.insert(ones, top)
+        zeros -= 1
+      else:
+        nums.append(top)
+        zeros -= 1
+        ones -= 1
