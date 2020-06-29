@@ -59,3 +59,18 @@ class Solution:
         G[mi][nj] = G[mi+1][nj] + G[mi][nj+1]
 
     return G[0][0]
+  
+# solved again
+class Solution:
+  def uniquePaths(self, m: int, n: int) -> int:
+    paths = [[0] * m for _ in range(n)]
+    paths[-1][-1] = 1
+
+    for i in range(n-1, -1, -1):
+      for j in range(m-1, -1, -1):
+        down = paths[i+1][j] if i < n-1 else 0
+        right = paths[i][j+1] if j < m-1 else 0
+        if paths[i][j] == 0: 
+          paths[i][j] = down + right
+
+    return paths[0][0]        
