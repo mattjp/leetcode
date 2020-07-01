@@ -14,3 +14,17 @@ class Solution:
       n -= i
       i += 1
     return res
+
+
+# solved again
+class Solution:
+  def arrangeCoins(self, n: int) -> int:
+    remaining = n
+    height = 1
+    rows = 0
+    while remaining - height >= 0:
+      remaining -= height
+      height += 1
+      rows += 1
+    return rows
+        
