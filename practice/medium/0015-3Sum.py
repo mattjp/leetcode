@@ -34,3 +34,44 @@ class Solution:
           self.twoSum(tmp_nums, -num)
         
       return list(self.output)
+
+
+# solved again using hash map approach
+class Solution:
+  def two_sum(self, nums: List[int], target: int) -> List[List[int]]:
+    seen = set()
+    output_set = set()
+    output = []
+    for num in nums:
+      if target-num in seen:
+        res = sorted([num, target-num, -target])
+        if repr(res) not in output_set:
+          output.append(res)
+          output_set.add(repr(res))
+      else:
+        seen.add(num)
+    return output
+    
+  
+  def threeSum(self, nums: List[int]) -> List[List[int]]:
+    seen = set()
+    seen_nums = set()
+    output_set = set()
+    output = []
+    for i,num in enumerate(nums):
+      if num in seen_nums:
+        continue
+      seen_nums.add(num)
+      
+      nums_i = nums[i+1:] # we don't have to check before `i` - prior combinations have been checked
+      if repr(nums_i) in seen:
+        continue
+      seen.add(repr(nums_i))
+
+      res = self.two_sum(nums_i, -num)
+      for r in res:
+        if repr(r) not in output_set:
+          output.append(r)
+          output_set.add(repr(r))
+
+    return output
