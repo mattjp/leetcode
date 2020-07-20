@@ -20,3 +20,21 @@ class Solution:
       cur = cur.next
 
     return output.next # return the next node of the initial node pointed at the head
+  
+
+# solved again
+class Solution:
+  def removeElements(self, head: ListNode, val: int) -> ListNode:
+    l = ListNode(val=-1, next=head) # create a node one behind `head`
+    r = head
+    output = l
+
+    while r:
+      while r and r.val == val: # find consecutive delete targets (min 1)
+        r = r.next
+      else: # jump `l` pointer to r, rewire, increment `r` pointer by 1
+        l.next = r
+        l = l.next
+        r = r.next if r else None
+
+    return output.next
