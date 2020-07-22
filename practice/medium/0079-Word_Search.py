@@ -74,3 +74,45 @@ class Solution:
         if board[i][j] == target and exists(board, word, set(), '', i, j, 0):
           return True
     return False
+
+  
+# solved yet again
+# submitted and approved in one (1) attempt
+class Solution:
+  def exist(self, board: List[List[str]], word: str) -> bool:
+        
+    def go(i: int, j: int, k: int, cur: str, seen):
+      if cur == word:
+        return True
+
+      if (
+        i < 0
+        or i > len(board)-1
+        or j < 0
+        or j > len(board[0])-1
+        or board[i][j] != word[k]
+        or (i,j) in seen
+      ):
+        return False
+            
+      seen.add((i, j))
+      k_ = k+1
+      cur_ = cur+board[i][j]
+            
+      if any([
+        go(i+1, j, k_, cur_, seen),
+        go(i-1, j, k_, cur_, seen),
+        go(i, j+1, k_, cur_, seen),
+        go(i, j-1, k_, cur_, seen)
+      ]):
+        return True
+
+      seen.remove((i, j))
+            
+            
+    for i in range(len(board)):
+      for j in range(len(board[0])):
+        if board[i][j] == word[0] and go(i,j,0,'',set()):
+          return True
+                
+    return False
