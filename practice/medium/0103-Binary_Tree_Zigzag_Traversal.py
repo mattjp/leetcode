@@ -28,3 +28,31 @@ class Solution:
       if i % 2 == 1:
         o.reverse()
     return output
+  
+# solved again
+class Solution:
+  def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
+
+    if not root: return [] # i hate error checking
+
+    output = []
+    dq = collections.deque([root])
+    direction = 1
+
+    while dq:
+      next_row = collections.deque()
+      output.append(list(map(lambda x: x.val, dq))) # only take node values
+      
+      while dq:
+        top = dq.pop() # always pop from left, since nodes are added in correct order
+        if direction == 1:
+          if top.right: next_row.append(top.right)
+          if top.left:  next_row.append(top.left)
+        else:
+          if top.left:  next_row.append(top.left)
+          if top.right: next_row.append(top.right)
+
+      dq = next_row
+      direction *= -1 # add nodes in the opposite direction for the next row
+
+    return output
