@@ -18,3 +18,20 @@ class Solution:
       l += 1
       r -= 1
     return True
+  
+
+# solved again
+class Solution:
+  def isPalindrome(self, s: str) -> bool:
+    exclude = set(string.punctuation)
+    exclude.add(' ')
+    sp = [ch.lower() for ch in s if ch not in exclude]
+
+    l = 0
+    r = len(sp)-1
+    while l < r:
+      if sp[l] != sp[r]:
+        return False
+      l += 1
+      r -= 1
+    return True
