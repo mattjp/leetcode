@@ -21,3 +21,29 @@ class Solution:
         return index
 
     return loop(root, target, root.val, float('-inf'))
+  
+# solved again
+class Solution:
+  def closestValue(self, root: TreeNode, target: float) -> int:
+
+    def loop(node: TreeNode, target: float, delta: float, best: int):
+      if not node:
+        return best
+
+      new_delta = abs(node.val - target)
+      new_best = best
+      best_delta = delta
+
+      if new_delta < delta:
+        new_best = node.val
+        best_delta = new_delta
+
+      if node.val > target:
+        return loop(node.left, target, best_delta, new_best)
+      elif node.val < target:
+        return loop(node.right, target, best_delta, new_best)
+      else:
+        return new_best
+
+
+    return loop(root, target, float('inf'), None)
