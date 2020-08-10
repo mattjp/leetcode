@@ -45,3 +45,36 @@ class Solution:
     
     # if there are any fresh oranges left, the problem is impossible
     return mins if len(fresh) == 0 else -1
+  
+# solved again
+class Solution:
+def orangesRotting(self, grid: List[List[int]]) -> int:
+
+    # `ripe` and `will_rot` are both mutable, therefore are passed by reference
+    def rot_if_possible(i, j, ripe, will_rot):
+      if (i,j) in ripe:
+        ripe.remove((i,j))
+        will_rot.append((i,j))
+
+
+    rows = len(grid)
+    cols = len(grid[0])
+
+    rotten = [(i,j) for i in range(rows) for j in range(cols) if grid[i][j] == 2]
+    ripe = set([(i,j) for i in range(rows) for j in range(cols) if grid[i][j] == 1])
+    will_rot = []
+
+    time = 0
+    while time == 0 or will_rot:
+      will_rot = []
+      while rotten:
+        i,j = rotten.pop()
+        rot_if_possible(i+1, j, ripe, will_rot)
+        rot_if_possible(i-1, j, ripe, will_rot)
+        rot_if_possible(i, j+1, ripe, will_rot)
+        rot_if_possible(i, j-1, ripe, will_rot)
+      rotten = will_rot
+      time += 1
+
+    # `time-1` because the `while` loop will always overshoot by one
+    return time-1 if not ripe else -1
