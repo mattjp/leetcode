@@ -35,3 +35,34 @@ class Solution:
     
     # return sum of max-fill for all points
     return sum(water_heights)
+  
+# redone a smarter way
+class Solution:
+  def trap(self, height: List[int]) -> int:
+    # cannot trap if there is no bucket
+    if len(height) < 3:
+      return 0
+
+    # iterate L to R
+    # record maximum possible fill at each point
+    # note this is monotonically increasing
+    R = [height[0]]
+    for i in range(1, len(height)):
+      R.append(max(R[-1], height[i]))
+
+    # same as above, but R to L
+    L = [height[-1]]
+    for i in range(len(height)-1, -1, -1):
+      L.append(max(L[-1], height[i]))
+
+    # reverse so indexes are the same
+    L.reverse()
+
+    # calculate the maximum fill for each index
+    # maximum fill is the minimum of filling L to R and R to L
+    # minus the height at that index
+    max_fill = []
+    for i in range(len(height)):
+      max_fill.append(min(R[i], L[i]) - height[i])
+
+    return sum(max_fill)
