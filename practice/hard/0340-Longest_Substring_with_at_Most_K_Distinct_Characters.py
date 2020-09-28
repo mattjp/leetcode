@@ -7,7 +7,7 @@ class Solution:
     """
     from collections import defaultdict
     
-    distinct = defaultdict(int)
+    distinct = defaultdict(int) # keep track of the number of times we've seen a char
     longest = l = r = 0
     
     if k == 0:
