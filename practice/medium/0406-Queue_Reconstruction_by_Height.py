@@ -20,3 +20,18 @@ class Solution:
       i -= 1
 
     return queue
+  
+
+# Solved again on 6-28-2022
+class Solution:
+  def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
+    # put everyone in a PQ ordered by 1) height 2) front
+    # insert the top of the PQ into the output
+    pq = list(map(lambda p: [-p[0], p[0], p[1]], people))
+    heapq.heapify(pq)
+    output = []
+
+    while pq:
+      _, h, f = heapq.heappop(pq)
+      output.insert(f, [h, f])
+    return output
